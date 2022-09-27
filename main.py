@@ -88,7 +88,7 @@ class Time(BaseModel):
 @app.get("/")
 def read_root():
 
-    return "Stroke API"
+    return "Stroke api"
 
 
 @app.post("/post_sorted", response_model=Item)
