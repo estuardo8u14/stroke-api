@@ -53,7 +53,6 @@ class Item2(BaseModel):
     Rankin: str
     Age: str
     Glucose: str
-    glucometro: str
     Oneset: str
     Baseline: str
     
@@ -73,6 +72,15 @@ class Item4(BaseModel):
     Rankin: str
     Age: str
 
+class Item5(BaseModel):
+    table: str
+    name: str
+    Blood: str
+    Infarct: str
+    Artery: str
+    Age: str
+    Nih: str
+
 class Time(BaseModel):
     tot_time: int
     name: str
@@ -80,7 +88,7 @@ class Time(BaseModel):
 @app.get("/")
 def read_root():
 
-    return "Stroke api"
+    return "Stroke API"
 
 
 @app.post("/post_sorted", response_model=Item)
@@ -154,6 +162,38 @@ def post_dragon(item2: Item2):
         item2.Glucose,
         item2.Oneset,
         item2.Baseline
+    )
+    mycursor.execute(sql, (val))
+
+    mydb.commit()
+
+    if(int(mycursor.rowcount) > 0):
+        return True
+    
+    else:
+        return False
+
+
+@app.post("/post_sedan", response_model=Item5)
+def post_dragon(item5: Item5):
+
+    mydb = mysql.connector.connect(
+        host="sql8.freesqldatabase.com",
+        user="sql8521469",
+        password="fcge8DjTzk",
+        database="sql8521469"
+    )
+
+    mycursor = mydb.cursor()
+
+    sql = "INSERT INTO "+ item5.table +" (name, Blood, Infarct, Artery, Age, Nih) VALUES (%s, %s, %s, %s, %s, %s)"
+    val = (
+        item5.name,
+        item5.Blood,
+        item5.Infarct,
+        item5.Artery,
+        item5.Age,
+        item5.Nih,
     )
     mycursor.execute(sql, (val))
 
