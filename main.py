@@ -1,4 +1,4 @@
-from ast import Str
+""" from ast import Str
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import mysql.connector
@@ -464,13 +464,10 @@ def get_data(id : str):
 
     print(data)
     return data
-    
+ """
 
 
-
-
-
-""" from ast import Str
+from ast import Str
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import mysql.connector
@@ -937,8 +934,3 @@ def get_data(id : str):
 
     print(data)
     return data
-    
-
-
-
- """
