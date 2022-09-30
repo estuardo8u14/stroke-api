@@ -56,15 +56,9 @@ class Item2(BaseModel):
     Glucose: str
     Oneset: str
     Baseline: str
+    resultD: str
     
-class Item3(BaseModel):
-    table: str
-    name: str
-    Blood: str
-    Infarct: str
-    Artery: str
-    Age: str
-    Nih: str
+    
 
 class Item4(BaseModel):
     table: str
@@ -72,6 +66,7 @@ class Item4(BaseModel):
     Diabetes: str
     Rankin: str
     Age: str
+    resultH: str
 
 class Item5(BaseModel):
     table: str
@@ -81,6 +76,7 @@ class Item5(BaseModel):
     Artery: str
     Age: str
     Nih: str
+    resultS: str
 
 class Time(BaseModel):
     tot_time: int
@@ -155,7 +151,7 @@ def post_dragon(item2: Item2):
 
     mycursor = mydb.cursor()
 
-    sql = "INSERT INTO "+ item2.table +" (name, Hyper, Rankin, Age, Glucose, Oneset, Baseline) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    sql = "INSERT INTO "+ item2.table +" (name, Hyper, Rankin, Age, Glucose, Oneset, Baseline, resultD) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
     val = (
         item2.name,
         item2.Hyper,
@@ -163,7 +159,8 @@ def post_dragon(item2: Item2):
         item2.Age,
         item2.Glucose,
         item2.Oneset,
-        item2.Baseline
+        item2.Baseline,
+        item2.resultD
     )
     mycursor.execute(sql, (val))
 
@@ -188,7 +185,7 @@ def post_dragon(item5: Item5):
 
     mycursor = mydb.cursor()
 
-    sql = "INSERT INTO "+ item5.table +" (name, Blood, Infarct, Artery, Age, Nih) VALUES (%s, %s, %s, %s, %s, %s)"
+    sql = "INSERT INTO "+ item5.table +" (name, Blood, Infarct, Artery, Age, Nih, resultS) VALUES (%s, %s, %s, %s, %s, %s, %s)"
     val = (
         item5.name,
         item5.Blood,
@@ -196,6 +193,7 @@ def post_dragon(item5: Item5):
         item5.Artery,
         item5.Age,
         item5.Nih,
+        item5.resultS
     )
     mycursor.execute(sql, (val))
 
@@ -208,7 +206,7 @@ def post_dragon(item5: Item5):
         return False
 
 
-@app.post("/post_hat", response_model=Item3)
+@app.post("/post_hat", response_model=Item4)
 def post_hat(item4: Item4):
 
     mydb = mysql.connector.connect(
@@ -221,12 +219,13 @@ def post_hat(item4: Item4):
 
     mycursor = mydb.cursor()
 
-    sql = "INSERT INTO "+ item4.table +" (name, Diabetes, Rankin, Age) VALUES (%s, %s, %s, %s)"
+    sql = "INSERT INTO "+ item4.table +" (name, Diabetes, Rankin, Age, resultH) VALUES (%s, %s, %s, %s, %s)"
     val = (
         item4.name,
         item4.Diabetes,
         item4.Rankin,
-        item4.Age
+        item4.Age,
+        item4.resultH
     )
     mycursor.execute(sql, (val))
 
@@ -386,6 +385,7 @@ def get_data(id : str):
         dict["Glucose"] = result[5]
         dict["Oneset"] = result[6]
         dict["Baseline"] = result[7]
+        dict["resultD"] = result[8]
 
         data.append(dict)
 
@@ -425,6 +425,7 @@ def get_data(id : str):
         dict["Artery"] = result[4]
         dict["Age"] = result[5]
         dict["Nih"] = result[6]
+        dict["resultS"] = result[7]
 
         data.append(dict)
 
@@ -463,6 +464,7 @@ def get_data(id : str):
         dict["Rankin"] = result[3]
         dict["Age"] = result[4]
         dict["tot_time"] = result[5]
+        dict["resultH"] = result[6]
 
         data.append(dict)
 
