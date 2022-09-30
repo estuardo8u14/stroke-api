@@ -44,7 +44,7 @@ class Item(BaseModel):
     Lenguaje: str
     Disartria: str
     Extincion: str
-    resultC: int
+    resultC: str
 
 
 class Item2(BaseModel):
@@ -105,7 +105,7 @@ def post_data(item: Item):
 
     mycursor = mydb.cursor()
 
-    sql = "INSERT INTO "+ item.table +" (name, Antecedentes, Sintomas, Entrada, Presión, Glucometro, Extra, Nivel, Preguntas, Ordenes, Mirada, Campos, Paresia, MotorMsDer, MotorMsizq, MotorMiDer, MotorMiizq, Ataxia, Sensibilidad, Lenguaje, Disartria, Extincion, resultC) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %d)"
+    sql = "INSERT INTO "+ item.table +" (name, Antecedentes, Sintomas, Entrada, Presión, Glucometro, Extra, Nivel, Preguntas, Ordenes, Mirada, Campos, Paresia, MotorMsDer, MotorMsizq, MotorMiDer, MotorMiizq, Ataxia, Sensibilidad, Lenguaje, Disartria, Extincion, resultC) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
     val = (
         item.name,
         item.antecedentes,
