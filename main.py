@@ -420,7 +420,7 @@ def get_data(id : str):
         print("id :", result[0], "name :", result[1] )
         dict["id"] = result[0]
         dict["name"] = result[1]
-        dict["Blood	"] = result[2]
+        dict["Blood"] = result[2]
         dict["Infarct"] = result[3]
         dict["Artery"] = result[4]
         dict["Age"] = result[5]
