@@ -1,27 +1,22 @@
 from ast import Str
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import mysql.connector
 from pydantic import BaseModel
 import uuid
 from datetime import datetime
-from typing import Union 
-from fastapi import Depends, FastAPI, HTTPException
-from sqlalchemy.orm import Session
-from . import crud, models, schemas
-from .database import SessionLocal, engine
-
-models.Base.metadata.create_all(bind=engine)
+from typing import Union
 
 app = FastAPI()
-# Dependency
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
-origins = ["*"]
+origins = [    
+    "http://localhost",
+    "http://localhost:3000",
+    "https://stoke.netlify.app",
+    "https://stoke.netlify.app/sorter",
+    "https://stoke.netlify.app/edit",
+    "*",
+]
 
 app.add_middleware(
     CORSMiddleware,
@@ -101,7 +96,7 @@ def read_root():
 
 
 @app.post("/post_sorted", response_model=Item)
-def post_data(item: Item, db: Session = Depends(get_db)):
+def post_data(item: Item):
 
     mydb = mysql.connector.connect(
         host="sql8.freesqldatabase.com",
