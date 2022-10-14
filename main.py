@@ -9,11 +9,7 @@ from typing import Union
 
 app = FastAPI()
 
-origins = [    
-    "http://localhost",
-    "http://localhost:3000",
-    "https://stoke.netlify.app",
-    ]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
