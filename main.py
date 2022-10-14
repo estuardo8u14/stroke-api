@@ -1,13 +1,25 @@
 from ast import Str
-from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import mysql.connector
 from pydantic import BaseModel
 import uuid
 from datetime import datetime
 from typing import Union 
+from fastapi import Depends, FastAPI, HTTPException
+from sqlalchemy.orm import Session
+from . import crud, models, schemas
+from .database import SessionLocal, engine
+
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+# Dependency
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 origins = ["*"]
 
@@ -89,7 +101,7 @@ def read_root():
 
 
 @app.post("/post_sorted", response_model=Item)
-def post_data(item: Item):
+def post_data(item: Item, db: Session = Depends(get_db)):
 
     mydb = mysql.connector.connect(
         host="sql8.freesqldatabase.com",
