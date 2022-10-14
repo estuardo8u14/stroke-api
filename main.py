@@ -5,7 +5,7 @@ import mysql.connector
 from pydantic import BaseModel
 import uuid
 from datetime import datetime
-from typing import Union
+from typing import Union 
 
 app = FastAPI()
 
