@@ -11,8 +11,8 @@ app = FastAPI()
 
 origins = [    
     "http://localhost",
+    "http://localhost:3000/edit",
     "http://localhost:3000/",
-    "http://localhost:3000",
     "https://stoke.netlify.app",
     "https://stoke.netlify.app/sorter",
     "https://stoke.netlify.app/edit",
