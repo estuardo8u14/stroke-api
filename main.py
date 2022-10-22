@@ -89,6 +89,7 @@ class Item5(BaseModel):
 
 class Item6(BaseModel):
     table: str
+    name: str
     resultM: str
     resultG: str
 
@@ -265,8 +266,9 @@ def post_mrs(item6: Item6):
 
     mycursor = mydb.cursor()
 
-    sql = "INSERT INTO "+ item6.table +" (resultH, resultsG) VALUES (%s, %s)"
+    sql = "INSERT INTO "+ item6.table +" (name, resultH, resultsG) VALUES (%s, %s, %s)"
     val = (
+        item6.name,
         item6.resultM,
         item6.resultG
     )
