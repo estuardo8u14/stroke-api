@@ -15,6 +15,7 @@ origins = [
     "https://stoke.netlify.app",
     "https://stoke.netlify.app/sorter",
     "https://stoke.netlify.app/edit",
+    " https://stroke-rest-api.herokuapp.com",
     "*",
 ]
 
@@ -54,6 +55,7 @@ class Item(BaseModel):
     resultC: str
 
 
+
 class Item2(BaseModel):
     table: str
     name: str
@@ -84,6 +86,12 @@ class Item5(BaseModel):
     Age: str
     Nih: str
     resultS: str
+
+class Item6(BaseModel):
+    table: str
+    resultM: str
+    resultG: str
+
 
 class Time(BaseModel):
     tot_time: int
@@ -243,6 +251,35 @@ def post_hat(item4: Item4):
     
     else:
         return False
+
+@app.post("/post_mrs", response_model=Item6)
+def post_mrs(item6: Item6):
+
+    mydb = mysql.connector.connect(
+        host="sql8.freesqldatabase.com",
+        user="sql8521469",
+        password="fcge8DjTzk",
+        database="sql8521469"
+    )
+    print(type(item6))
+
+    mycursor = mydb.cursor()
+
+    sql = "INSERT INTO "+ item6.table +" (resultH, resultsG) VALUES (%s, %s)"
+    val = (
+        item6.resultM,
+        item6.resultG
+    )
+    mycursor.execute(sql, (val))
+
+    mydb.commit()
+
+    if(int(mycursor.rowcount) > 0):
+        return True
+    
+    else:
+        return False
+
     
 
 @app.post("/post_time", response_model=Time)
@@ -473,6 +510,37 @@ def get_data(id : str):
         dict["tot_time"] = result[5]
         dict["resultH"] = result[6]
 
+        data.append(dict)
+
+    print(data)
+    return data
+
+@app.get("/get_mrs")
+def get_mrs(id : str):
+    mydb = mysql.connector.connect(
+        host="sql8.freesqldatabase.com",
+        user="sql8521469",
+        password="fcge8DjTzk",
+        database="sql8521469"
+    )
+
+    mycursor = mydb.cursor()
+
+    sql = "SELECT * FROM mrs where id="+ id +""
+    
+    mycursor.execute(sql)
+    results = mycursor.fetchall()
+
+    
+    data = []
+    
+    print(results)
+
+    for result in results:
+        dict = {}
+        print("id :", result[0], "name :", result[1] )
+        dict["resultM"] = result[2]
+        dict["resultG"] = result[3]
         data.append(dict)
 
     print(data)
