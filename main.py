@@ -1,11 +1,12 @@
 from ast import Str
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+# from fastapi.middleware.cors import CORSMiddleware
 import mysql.connector
 from pydantic import BaseModel
 import uuid
 from datetime import datetime
 from typing import Union
+from starlette.middleware.cors import CORSMiddleware as CORSMiddleware 
 
 app = FastAPI()
 
