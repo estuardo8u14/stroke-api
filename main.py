@@ -1,27 +1,16 @@
 from ast import Str
 from fastapi import FastAPI
-# from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 import mysql.connector
 from pydantic import BaseModel
 import uuid
 from datetime import datetime
 from typing import Union
-from starlette.middleware.cors import CORSMiddleware as CORSMiddleware 
+#from starlette.middleware.cors import CORSMiddleware as CORSMiddleware 
 
 app = FastAPI()
 
-origins = [    
-    "http://localhost",
-    "http://localhost:3000",
-    "http://localhost:3000/edit",
-    "http://localhost:3000/",
-    "https://stoke.netlify.app",
-    "https://stoke.netlify.app/",
-    "https://stoke.netlify.app/sorter",
-    "https://stoke.netlify.app/edit",
-    " https://stroke-rest-api.herokuapp.com",
-    "*",
-]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
