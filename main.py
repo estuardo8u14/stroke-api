@@ -10,6 +10,7 @@ from typing import Union
 
 app = FastAPI()
 
+<<<<<<< HEAD
 origins = ["http://localhost",
     "http://localhost:3000/",
     "http://localhost:3000",
@@ -18,6 +19,9 @@ origins = ["http://localhost",
     "https://stoke.netlify.app/edit",
     " https://stroke-rest-api.herokuapp.com",
     "*",]
+=======
+origins = ["*"]
+>>>>>>> 92ff83c6edb467d347cf1d526629c21b37346e74
 
 app.add_middleware(
     CORSMiddleware,
