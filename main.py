@@ -11,9 +11,11 @@ app = FastAPI()
 
 origins = [    
     "http://localhost",
+    "http://localhost:3000",
     "http://localhost:3000/edit",
     "http://localhost:3000/",
     "https://stoke.netlify.app",
+    "https://stoke.netlify.app/",
     "https://stoke.netlify.app/sorter",
     "https://stoke.netlify.app/edit",
     " https://stroke-rest-api.herokuapp.com",
@@ -267,7 +269,7 @@ def post_mrs(item6: Item6):
 
     mycursor = mydb.cursor()
 
-    sql = "INSERT INTO "+ item6.table +" (name, resultH, resultsG) VALUES (%s, %s, %s)"
+    sql = "INSERT INTO "+ item6.table +" (name, resultM, resultsG) VALUES (%s, %s, %s)"
     val = (
         item6.name,
         item6.resultM,
