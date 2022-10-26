@@ -6,7 +6,6 @@ from pydantic import BaseModel
 import uuid
 from datetime import datetime
 from typing import Union
-from supertokens_fastapi import get_cors_allowed_headers
 #from starlette.middleware.cors import CORSMiddleware as CORSMiddleware 
 
 app = FastAPI()
@@ -29,7 +28,7 @@ app.add_middleware(
     allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"] + get_cors_allowed_headers(),
+    allow_headers=["*"],
     expose_headers=["*"]
 )
 
