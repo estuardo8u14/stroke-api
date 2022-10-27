@@ -494,7 +494,7 @@ def get_data(id : str):
         dict["Mtres"] = result[8]
         dict["Mcuatro"] = result[9]
         dict["Mcinco"] = result[10]
-        dict["Mceis"] = result[11]
+        dict["Mseis"] = result[11]
         dict["resultAs"] = result[12]
 
         data.append(dict)
