@@ -71,6 +71,22 @@ class Item2(BaseModel):
     Oneset: str
     Baseline: str
     resultD: str
+
+
+class Item3(BaseModel):
+    table: str
+    name: str
+    Caudado: str
+    Capinterna: str
+    Lentiforme: str
+    Cintainsular: str
+    Muno: str
+    Mdos: str
+    Mtres: str
+    Mcuatro: str
+    Mcinco: str
+    Mseis: str
+    resultAs: str
     
     
 
@@ -147,6 +163,44 @@ def post_data(item: Item):
         item.Disartria,
         item.Extincion,
         item.resultC
+    )
+    mycursor.execute(sql, (val))
+
+    mydb.commit()
+
+    if(int(mycursor.rowcount) > 0):
+        return True
+    
+    else:
+        return False
+
+@app.post("/post_aspects", response_model=Item3)
+def post_aspects(item3: Item3):
+
+    mydb = mysql.connector.connect(
+        host="sql8.freesqldatabase.com",
+        user="sql8521469",
+        password="fcge8DjTzk",
+        database="sql8521469"
+    )
+    print(type(item3))
+
+    mycursor = mydb.cursor()
+
+    sql = "INSERT INTO "+ item3.table +" (name, Caudado, Capinterna, Lentiforme, Cintainsular, Muno, Mdos, Mtres, Mcuatro, Mcinco, Mseis, resultAs) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    val = (
+        item3.name,
+        item3.Caudado,
+        item3.Capinterna,
+        item3.Lentiforme,
+        item3.Cintainsular,
+        item3.Muno,
+        item3.Mdos,
+        item3.Mtres,
+        item3.Mcuatro,
+        item3.Mcinco,
+        item3.Mseis,
+        item3.resultAs
     )
     mycursor.execute(sql, (val))
 
@@ -403,7 +457,53 @@ def get_data(id : str):
 
     print(data)
     return data
+
+
+@app.get("/get_aspects")
+def get_data(id : str):
+    mydb = mysql.connector.connect(
+        host="sql8.freesqldatabase.com",
+        user="sql8521469",
+        password="fcge8DjTzk",
+        database="sql8521469"
+    )
+
+    mycursor = mydb.cursor()
+
+    sql = "SELECT * FROM aspects where id="+ id +""
     
+    mycursor.execute(sql)
+    results = mycursor.fetchall()
+
+    
+    data = []
+    
+    print(results)
+
+    for result in results:
+        dict = {}
+        print("id :", result[0], "name :", result[1] )
+        dict["id"] = result[0]
+        dict["name"] = result[1]
+        dict["Caudado"] = result[2]
+        dict["Capinterna"] = result[3]
+        dict["Lentiforme"] = result[4]
+        dict["Cintainsular"] = result[5]
+        dict["Muno"] = result[6]
+        dict["Mdos"] = result[7]
+        dict["Mtres"] = result[8]
+        dict["Mcuatro"] = result[9]
+        dict["Mcinco"] = result[10]
+        dict["Mceis"] = result[11]
+        dict["resultAs"] = result[12]
+
+        data.append(dict)
+
+    print(data)
+    return data
+    
+
+
 @app.get("/get_dragon")
 def get_data(id : str):
     mydb = mysql.connector.connect(
